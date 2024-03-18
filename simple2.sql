@@ -1,10 +1,10 @@
 -- create a table
 CREATE TABLE Instructor (
-  ins_id int NOT NULL UNIQUE PRIMARY KEY,
+  ins_id int PRIMARY KEY NOT NULL,
   lastname varchar(255) NOT NULL,
   firstname varchar(255),
   city varchar(255),
-  country varchar(2)
+  country char(2)
 );
 
 -- add data to table
