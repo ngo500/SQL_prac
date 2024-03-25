@@ -88,3 +88,25 @@ class Lesson(models.Model):
     course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
     content = models.TextField()
 
+# Enrollment model 
+# lookup table with additional enrollment info
+# enum choices for enrollment mode
+# learner, course as ForeignKey
+# date_enrolled as DateField
+# mode as CharField
+class Enrollment(models.Model):
+    AUDIT = 'audit'
+    HONOR = 'honor'
+    COURSE_MODES = [
+        (AUDIT, 'Audit'),
+        (HONOR, 'Honor'),
+    ]
+    # Add a learner foreign key
+    learner = models.ForeignKey(Learner, on_delete=models.CASCADE)
+    # Add a course foreign key
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    # Enrollment date
+    date_enrolled = models.DateField(default=now)
+    # Enrollment mode
+    mode = models.CharField(max_length=5, choices=COURSE_MODES, default=AUDIT)
+    
