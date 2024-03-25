@@ -27,4 +27,18 @@ class Instructor(User):
                "Last name: " + self.last_name + ", " + \
                "Is full time: " + str(self.full_time) + ", " + \
                "Total Learners: " + str(self.total_learners)
-        
+
+# Course model
+# many to many with Instructor model
+# name, description as CharField
+# instructors as ManyToManyField
+class Course(models.Model):
+    name = models.CharField(null=False, max_length=100, default='online course')
+    description = models.CharField(max_length=500)
+    # Many-To-Many relationship with Instructor
+    instructors = models.ManyToManyField(Instructor)
+    
+    # Create a toString method for object string representation
+    def __str__(self):
+        return "Name: " + self.name + "," + \
+            "Description: " + self.description
