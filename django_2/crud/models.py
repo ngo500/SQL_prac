@@ -28,6 +28,41 @@ class Instructor(User):
                "Is full time: " + str(self.full_time) + ", " + \
                "Total Learners: " + str(self.total_learners)
 
+# Learner model
+# inherits from User model
+# enum choices for occupation
+# occupation as CharField
+# social_link as URLField
+class Learner(User):
+    STUDENT = 'student'
+    DEVELOPER = 'developer'
+    DATA_SCIENTIST = 'data_scientist'
+    DATABASE_ADMIN = 'dba'
+    OCCUPATION_CHOICES = [
+        (STUDENT, 'Student'),
+        (DEVELOPER, 'Developer'),
+        (DATA_SCIENTIST, 'Data Scientist'),
+        (DATABASE_ADMIN, 'Database Admin')
+    ]
+    # Occupation Char field with defined enumeration choices
+    occupation = models.CharField(
+        null=False,
+        max_length=20,
+        choices=OCCUPATION_CHOICES,
+        default=STUDENT
+    )
+    # Social link URL field
+    social_link = models.URLField(max_length=200)
+    
+    # Create a toString method for object string representation
+    def __str__(self):
+        return "First name: " + self.first_name + ", " + \
+                "Last name: " + self.last_name + ", " \
+                "Date of Birth: " + str(self.dob) + ", " + \
+                "Occupation: " + self.occupation + ", " + \
+                "Social Link: " + self.social_link
+   
+
 # Course model
 # many to many with Instructor model
 # name, description as CharField
@@ -52,4 +87,4 @@ class Lesson(models.Model):
     title = models.CharField(max_length=200, default="title")
     course = models.ForeignKey(Course, null=True, on_delete=models.CASCADE)
     content = models.TextField()
-    
+
