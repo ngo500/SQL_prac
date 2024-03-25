@@ -12,4 +12,19 @@ class User(models.Model):
     # Create a toString method for object string representation
     def __str__(self):
         return self.first_name + " " + self.last_name
-      
+
+# Instructor model
+# inherits from User model (one to one)
+# full_time as BooleanField
+# total_learners as IntegerField
+class Instructor(User):
+    full_time = models.BooleanField(default=True)
+    total_learners = models.IntegerField()
+    
+    # Create a toString method for object string representation
+    def __str__(self):
+        return "First name: " + self.first_name + ", " + \
+               "Last name: " + self.last_name + ", " + \
+               "Is full time: " + str(self.full_time) + ", " + \
+               "Total Learners: " + str(self.total_learners)
+        
