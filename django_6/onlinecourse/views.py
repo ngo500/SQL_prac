@@ -12,6 +12,39 @@ import logging
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
 
+# Registration request view
+def registration_request(request):
+    context = {}
+    # If GET request, render the registration page
+    if request.method == 'GET':
+        return render(request, 'onlinecourse/user_registration.html', context)
+    # If POST request
+    elif request.method == 'POST':
+        # <HINT> Get user information from request.POST
+        username = request.POST['username']
+        first_name = request.POST['firstname']
+        last_name = request.POST['lastname']
+        password = request.POST['psw']
+        user_exist = False
+        try:
+            # Check if user already exists
+            User.objects.get(username=username)
+            user_exist = True
+        except:
+            # If not, simply log this is a new user
+            logger.debug("{} is new user".format(username))
+        # If it is a new user
+        if not user_exist:
+            # Create user in auth_user table
+            user = User.objects.create_user(username=username, first_name=first_name, 
+                                            last_name=last_name, password=password)
+            # Login the user
+            login(request, user) 
+            # Redirect to course list page
+            return redirect("onlinecourse:popular_course_list")
+        else:
+            return render(request, 'onlinecourse/user_registration.html', context)
+
 # Login request view
 def login_request(request):
     context = {}
