@@ -35,13 +35,13 @@
     </div>
 </nav>
 
-<div class=""> <!--Stylize the root div with .container class -->
+<div class="container"> 
     <h2>{{ course.name }}</h2>
-    <div class=""> <!--Stylize the second level card columns div with .card-columns-vertical class-->
+    <div class="card-columns-vertical">
         {% for lesson in course.lesson_set.all %}
-        <div class=""> <!--Stylize the third level lesson div with .card class-->
-            <div class="">Lesson {{lesson.order|add:1}}: {{lesson.title}}</div> <!--Stylize the fourth level lesson header  div with .card-header class-->
-            <div class="">{{lesson.content}}</div>  <!--Stylize the fifth level lesson content div with .card-body class-->
+        <div class="card"> 
+            <div class="card-header">Lesson {{ forloop.counter }}: {{ lesson.title }}</div> 
+            <div class="card-body">{{lesson.content}}</div> 
         </div>
         {% endfor %}
     </div>
